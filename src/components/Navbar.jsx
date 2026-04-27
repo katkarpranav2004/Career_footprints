@@ -10,8 +10,8 @@ export default function Navbar({ activeSection, menuOpen, onToggleMenu }) {
   }, []);
 
   const links = [
-    { id: 'work', label: 'WORK' },
     { id: 'chronology', label: 'STORY' },
+    { id: 'work', label: 'WORK' },
     { id: 'about', label: 'ABOUT' },
     { id: 'contact', label: 'CONTACT' },
   ];
@@ -20,11 +20,10 @@ export default function Navbar({ activeSection, menuOpen, onToggleMenu }) {
     <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`} id="navbar">
       <div className="navbar-inner">
         <a href="#" className="navbar-brand">
-          <span className="brand-bracket">~</span>
-          <span className="brand-slash">/</span>
-          <span className="brand-name">PRANAV</span>
-          <span className="brand-accent">_K</span>
-          <span className="brand-cursor"></span>
+          <span className="brand-bracket">&lt;</span>
+          <span className="brand-name">Pranav</span>
+          <span className="brand-accent">.dev</span>
+          <span className="brand-slash"> /&gt;</span>
         </a>
         <nav className="navbar-links">
           {links.map((link) => (

@@ -1,7 +1,7 @@
 export default function MobileMenu({ open, onClose }) {
   const links = [
-    { id: 'work', label: 'WORK' },
     { id: 'chronology', label: 'STORY' },
+    { id: 'work', label: 'WORK' },
     { id: 'about', label: 'ABOUT' },
     { id: 'contact', label: 'CONTACT' },
   ];
