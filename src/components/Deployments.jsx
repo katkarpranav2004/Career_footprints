@@ -1,6 +1,28 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Deployments() {
+  const [loadIframe, setLoadIframe] = useState(false);
+  const iframeContainerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setLoadIframe(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (iframeContainerRef.current) {
+      observer.observe(iframeContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const revealProps = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
@@ -24,13 +46,18 @@ export default function Deployments() {
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          <div className="bento-card-image" style={{ height: '500px', overflow: 'hidden', position: 'relative', zIndex: 10 }}>
-            <iframe 
-              src="https://world-chat-zuyy.onrender.com/" 
-              title="World Chat Live Website"
-              style={{ width: '100%', height: '100%', border: 'none' }}
-              loading="lazy"
-            />
+          <div className="bento-card-image" style={{ height: '500px', overflow: 'hidden', position: 'relative', zIndex: 10 }} ref={iframeContainerRef}>
+            {loadIframe ? (
+              <iframe 
+                src="https://world-chat-zuyy.onrender.com/" 
+                title="World Chat Live Website"
+                style={{ width: '100%', height: '100%', border: 'none' }}
+              />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface)' }}>
+                <span className="section-hint">Connecting to World Chat...</span>
+              </div>
+            )}
           </div>
           <div className="bento-card-content">
             <div className="bento-tags">
