@@ -36,14 +36,14 @@ export default function Hero() {
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          FULLSTACK
+          PRANAV
         </motion.span>
         <motion.span 
           className="title-line"
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.25 }}
         >
-          ARCHITECT<span className="title-dot">.</span>
+          KATKAR<span className="title-dot">.</span>
         </motion.span>
       </h1>
 
@@ -53,7 +53,7 @@ export default function Hero() {
         {...revealProps}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        I'm Pranav Katkar — a full-stack developer building real-time applications, AI-powered systems, and responsive web experiences with the MERN stack.
+        Full-stack developer building real-time applications, AI-powered systems, and responsive web experiences with the MERN stack.
       </motion.p>
 
       {/* CTA Buttons */}
