@@ -29,6 +29,7 @@ export default function Deployments() {
               src="https://world-chat-zuyy.onrender.com/" 
               title="World Chat Live Website"
               style={{ width: '100%', height: '100%', border: 'none' }}
+              loading="lazy"
             />
           </div>
           <div className="bento-card-content">
