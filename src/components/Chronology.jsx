@@ -21,10 +21,10 @@ const timelineData = [
     desc: 'Completed a 2-month Web Development internship managing client websites and enhancing user experiences.',
   },
   {
-    date: 'NOV 2025',
-    role: 'WP INTERN',
-    company: 'Orbosis Global',
-    desc: 'Developed and customized WordPress websites and landing pages, improving UI/UX, responsiveness, and site performance.',
+    date: 'NOV 2025 — JAN 2026',
+    role: 'ANDROID DEV INTERN',
+    company: 'VanillaKart',
+    desc: 'Completed a 2-month Skill Training and Internship Program, developing an Android Hybrid Application and contributing to real-world company projects.',
   },
   {
     date: 'FEB 2026',

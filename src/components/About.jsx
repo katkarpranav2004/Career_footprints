@@ -23,6 +23,7 @@ export default function About() {
     { name: 'Cloud Computing – NPTEL', image: '/cert_nptel_cloud.png' },
     { name: 'Java Advanced App Dev – LPU', image: '/cert_java_advanced.png' },
     { name: 'Web Development Internship – VanillaKart', image: '/cert_vanillakart.png' },
+    { name: 'Android Hybrid App Dev Internship – VanillaKart', image: '/cert_vanillakart_android.png' },
     { name: 'HackerRank 5★ Java', image: null },
   ];
 
@@ -93,7 +94,7 @@ export default function About() {
                 opacity: 0.9
               },
               hover: {
-                x: offset * 90, // Tighter spread since we have 7 cards now
+                x: offset * 80, // Tighter spread since we have 8 cards now
                 y: Math.abs(offset) * 15 - 20, 
                 rotate: offset * 5, // Slightly gentler rotation
                 scale: 1,
