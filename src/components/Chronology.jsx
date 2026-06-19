@@ -27,16 +27,16 @@ const timelineData = [
     desc: 'Completed a 2-month Skill Training and Internship Program, developing an Android Hybrid Application and contributing to real-world company projects.',
   },
   {
-    date: 'FEB 2026',
-    role: 'PHP WITH LARAVEL',
-    company: 'Udemy',
-    desc: 'Completed a comprehensive 43-hour course on PHP with Laravel for beginners, mastering backend development and MVC architecture.',
-  },
-  {
     date: 'JUNE 2026 — PRESENT',
     role: 'BUSINESS DEV INTERN',
     company: 'Azisly.ai',
     desc: 'Ongoing internship driving business development, identifying growth opportunities, and building strategic partnerships at an AI-focused startup.',
+  },
+  {
+    date: 'FEB 2026',
+    role: 'PHP WITH LARAVEL',
+    company: 'Udemy',
+    desc: 'Completed a comprehensive 43-hour course on PHP with Laravel for beginners, mastering backend development and MVC architecture.',
   }
 ];
 
