@@ -283,6 +283,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   50% { opacity: 0.4; transform: scale(0.7); }
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
+}
+
 /* ============================
    CERTIFICATION DECK (PLAYING CARDS)
    ============================ */
@@ -923,10 +928,14 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 @media (min-width: 769px) {
   .bento-grid {
     grid-template-columns: repeat(12, 1fr);
+    align-items: stretch;
   }
+  .bento-full { grid-column: span 12; }
+  .bento-half { grid-column: span 6; }
+  .bento-half.bento-small { min-height: 100%; }
   .bento-large { grid-column: span 8; }
   .bento-small { grid-column: span 4; }
-  .bento-medium { grid-column: span 8; }
+  .bento-medium { grid-column: span 12; }
 }
 
 .bento-card {
@@ -1092,6 +1101,87 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 
 .bento-card:hover .bento-medium-image img { transform: scale(1.05); }
+
+/* Compact card (horizontal layout, shorter height) */
+.bento-compact {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.bento-compact-image {
+  width: 160px;
+  min-width: 160px;
+  overflow: hidden;
+  border-right: 0.5px solid var(--outline-variant);
+}
+
+.bento-compact-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.25);
+  transition: transform 0.7s var(--ease-out);
+}
+
+.bento-compact:hover .bento-compact-image img {
+  transform: scale(1.05);
+}
+
+.bento-compact-icon-area {
+  width: 120px;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 0.5px solid var(--surface-tint);
+}
+
+.bento-compact-icon-area .bento-icon {
+  font-size: 40px !important;
+  margin-bottom: 0;
+}
+
+.bento-compact-body {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-compact-content {
+  flex: 1;
+}
+
+.bento-compact .bento-title {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.bento-compact .bento-desc {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.bento-compact .bento-card-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .bento-compact {
+    flex-direction: row;
+  }
+  .bento-compact-image {
+    width: 100px;
+    min-width: 100px;
+  }
+  .bento-compact-icon-area {
+    width: 80px;
+    min-width: 80px;
+  }
+}
 
 /* ============================
    ABOUT

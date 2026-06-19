@@ -2,23 +2,31 @@ import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 
 export default function Deployments() {
-  const [loadIframe, setLoadIframe] = useState(false);
-  const iframeContainerRef = useRef(null);
+  const [loadWorldChat, setLoadWorldChat] = useState(false);
+  const [loadDroneSim, setLoadDroneSim] = useState(false);
+  const worldChatRef = useRef(null);
+  const droneSimRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setLoadIframe(true);
-          observer.disconnect();
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === worldChatRef.current) {
+              setLoadWorldChat(true);
+            }
+            if (entry.target === droneSimRef.current) {
+              setLoadDroneSim(true);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
       },
       { threshold: 0.1 }
     );
 
-    if (iframeContainerRef.current) {
-      observer.observe(iframeContainerRef.current);
-    }
+    if (worldChatRef.current) observer.observe(worldChatRef.current);
+    if (droneSimRef.current) observer.observe(droneSimRef.current);
 
     return () => observer.disconnect();
   }, []);
@@ -40,14 +48,14 @@ export default function Deployments() {
       </motion.h2>
 
       <div className="bento-grid">
-        {/* Large Feature Card — World Chat */}
+        {/* 1. Full-Width — World Chat */}
         <motion.div 
-          className="bento-card bento-large"
+          className="bento-card bento-full"
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          <div className="bento-card-image" style={{ height: '500px', overflow: 'hidden', position: 'relative', zIndex: 10 }} ref={iframeContainerRef}>
-            {loadIframe ? (
+          <div className="bento-card-image" style={{ height: '500px', overflow: 'hidden', position: 'relative', zIndex: 10 }} ref={worldChatRef}>
+            {loadWorldChat ? (
               <iframe 
                 src="https://world-chat-zuyy.onrender.com/" 
                 title="World Chat Live Website"
@@ -79,25 +87,61 @@ export default function Deployments() {
           <div className="bento-card-hover-line" />
         </motion.div>
 
-        {/* Small Card 1 — GridSync */}
+        {/* 2. Full-Width — Drone Sim (same layout as World Chat) */}
         <motion.div 
-          className="bento-card bento-small"
+          className="bento-card bento-full"
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="bento-card-image" style={{ height: '200px', borderBottom: '0.5px solid var(--outline-variant)' }}>
-            <img src="/stitch_project1_image.jpg" alt="GridSync AI-Powered Resource Tracking" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div className="bento-card-image" style={{ height: '500px', overflow: 'hidden', position: 'relative', zIndex: 10 }} ref={droneSimRef}>
+            {loadDroneSim ? (
+              <iframe
+                src="https://drone-sim-901y.onrender.com/static/index.html"
+                title="Drone Sim Live Demo"
+                style={{ width: '100%', height: '100%', border: 'none' }}
+              />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface)', flexDirection: 'column', gap: '8px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '32px', color: 'var(--accent)', animation: 'pulse 2s infinite' }}>flight</span>
+                <span className="section-hint">Launching Drone Sim...</span>
+              </div>
+            )}
           </div>
           <div className="bento-card-content">
-            <span className="material-symbols-outlined bento-icon" style={{ marginTop: '16px' }}>analytics</span>
-            <h3 className="bento-title">GRIDSYNC</h3>
+            <div className="bento-tags">
+              <span className="chip">THREE.JS</span>
+              <span className="chip">WEBSOCKET</span>
+              <span className="chip">RRT*</span>
+            </div>
+            <h3 className="bento-title">DRONE_SIM</h3>
             <p className="bento-desc">
-              AI-powered resource tracking system — tracks daily water & electricity usage with AI-driven insights, interactive charts, and visual dashboards for data-driven optimization.
+              Multi-drone 3D path optimization platform with RRT* pathfinding, B-Spline trajectory smoothing, real-time WebSocket telemetry, and unsupervised learning for flight-path analysis.
             </p>
           </div>
-          <div className="bento-card-footer">
-            <span className="bento-tech">NODE.JS · REACT</span>
-            <span className="material-symbols-outlined bento-arrow">arrow_forward</span>
+          <a href="https://github.com/katkarpranav2004/drone-sim" target="_blank" rel="noopener noreferrer" className="bento-link-overlay" aria-label="View Drone Sim on GitHub" />
+          <div className="bento-card-hover-line" />
+        </motion.div>
+
+        {/* 3a. Half-Width Compact — GridSync */}
+        <motion.div 
+          className="bento-card bento-half bento-compact"
+          {...revealProps}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <div className="bento-compact-image">
+            <img src="/stitch_project1_image.jpg" alt="GridSync AI-Powered Resource Tracking" loading="lazy" />
+          </div>
+          <div className="bento-compact-body">
+            <div className="bento-compact-content">
+              <h3 className="bento-title">GRIDSYNC</h3>
+              <p className="bento-desc">
+                AI-powered resource tracking with AI-driven insights, interactive charts, and visual dashboards.
+              </p>
+            </div>
+            <div className="bento-card-footer">
+              <span className="bento-tech">NODE.JS · REACT</span>
+              <span className="material-symbols-outlined bento-arrow">arrow_forward</span>
+            </div>
           </div>
           <a
             href="https://github.com/katkarpranav2004/Water-and-Electricity-Tracking-application"
@@ -109,52 +153,28 @@ export default function Deployments() {
           <div className="bento-card-hover-line" />
         </motion.div>
 
-        {/* Small Card 2 (Inverted) — AI Debt Management */}
+        {/* 3b. Half-Width Compact — AI Debt Manager */}
         <motion.div 
-          className="bento-card bento-small bento-inverted"
-          {...revealProps}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <div className="bento-card-content">
-            <span className="material-symbols-outlined bento-icon">account_balance</span>
-            <h3 className="bento-title">AI_DEBT_MANAGER</h3>
-            <p className="bento-desc">
-              AI-driven platform for optimizing debt repayment, offering personalized financial strategies and insights to achieve financial freedom.
-            </p>
-          </div>
-          <div className="bento-card-footer">
-            <span className="bento-tech">AI · FINANCE</span>
-            <span className="material-symbols-outlined bento-arrow">arrow_forward</span>
-          </div>
-          <a href="https://github.com/katkarpranav2004/Ai-debt-management-" target="_blank" rel="noopener noreferrer" className="bento-link-overlay" aria-label="View AI Debt Management on GitHub" />
-          <div className="bento-card-hover-line" />
-        </motion.div>
-
-        {/* Medium Feature Card — Digital Marketing */}
-        <motion.div 
-          className="bento-card bento-medium"
+          className="bento-card bento-half bento-compact bento-inverted"
           {...revealProps}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <div className="bento-medium-text">
-            <div className="bento-tags">
-              <span className="chip">REACT</span>
-              <span className="chip">NODE.JS</span>
-              <span className="chip">MONGODB</span>
+          <div className="bento-compact-icon-area">
+            <span className="material-symbols-outlined bento-icon">account_balance</span>
+          </div>
+          <div className="bento-compact-body">
+            <div className="bento-compact-content">
+              <h3 className="bento-title">AI_DEBT_MANAGER</h3>
+              <p className="bento-desc">
+                AI-driven platform for optimizing debt repayment with personalized financial strategies.
+              </p>
             </div>
-            <h3 className="bento-title">DIGITAL_MARKETING</h3>
-            <p className="bento-desc">
-              A modern MERN stack implementation of a Digital Marketing agency website, completely migrating from a traditional multi-page PHP site to a fast, scalable Single Page Application.
-            </p>
+            <div className="bento-card-footer">
+              <span className="bento-tech">AI · FINANCE</span>
+              <span className="material-symbols-outlined bento-arrow">arrow_forward</span>
+            </div>
           </div>
-          <div className="bento-medium-image">
-            <img
-              src="/stitch_project2_image.jpg"
-              alt="Digital Marketing MERN SPA"
-              loading="lazy"
-            />
-          </div>
-          <a href="https://github.com/katkarpranav2004/DigitalMarketing" target="_blank" rel="noopener noreferrer" className="bento-link-overlay" aria-label="View Digital Marketing on GitHub" />
+          <a href="https://github.com/katkarpranav2004/Ai-debt-management-" target="_blank" rel="noopener noreferrer" className="bento-link-overlay" aria-label="View AI Debt Management on GitHub" />
           <div className="bento-card-hover-line" />
         </motion.div>
       </div>
